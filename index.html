@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ending</title>
-  </head>
-  <body>
-    <h1 id = "note">
-    <a href="https://note.com/crisp_ram6755">note</a>
-    </h1>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ending</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- 背景演出 -->
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
+  <canvas id="noise"></canvas>
+
+  <main class="wrap">
+    <header class="top">
+      <p class="sigil" aria-hidden="true">⟡</p>
+      <p class="small">接続先: unknown / route: redirected / trace: lost</p>
+    </header>
+
+    <section class="panel">
+      <h1 class="glitch" data-text="YOU SHOULDN'T BE HERE.">YOU SHOULDN'T BE HERE.</h1>
+
+      <div class="terminal" role="status" aria-live="polite">
+        <p class="line"><span class="prompt">></span> <span id="type1"></span><span class="caret" aria-hidden="true"></span></p>
+        <p class="line dim"><span class="prompt">></span> <span id="type2"></span></p>
+        <p class="line dim"><span class="prompt">></span> <span id="type3"></span></p>
+      </div>
+
+      <div class="choices">
+        <button id="btnBack" class="btn ghost" type="button">やめる</button>
+        <button id="btnReveal" class="btn" type="button">すすむ</button>
+      </div>
+
+      <div id="linkBox" class="linkbox" hidden>
+        <p class="warn">リンクが明らかになりました。クリックは自己責任。</p>
+
+        <h2 id="note" class="noteTitle">
+          <a id="noteLink" href="https://note.com/crisp_ram6755" target="_blank" rel="noopener noreferrer">
+            note://crisp_ram6755
+          </a>
+        </h2>
+
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p class="tiny">signal: unstable / latency: - / watcher: ON</p>
+    </footer>
+  </main>
+
+  <script src="./js/script.js"></script>
+</body>
 </html>
