@@ -61,11 +61,6 @@ body{
   gap:12px;
   opacity:.8;
 }
-.sigil{
-  font-size:20px;
-  letter-spacing:.2em;
-  filter: drop-shadow(0 0 8px rgba(160,255,220,.25));
-}
 .small{
   margin:0;
   font-size:12px;
@@ -90,8 +85,8 @@ body{
   letter-spacing:.08em;
   position:relative;
   text-transform:uppercase;
-  color:#dffaf1;
-  text-shadow: 0 0 18px rgba(160,255,220,.18);
+  color:#a6aeac;
+  text-shadow: 0 0 18px rgba(190, 202, 198, 0.18);
 }
 .glitch::before,
 .glitch::after{
@@ -154,12 +149,6 @@ body{
 @keyframes blink{ 50%{ opacity:0; } }
 
 /* ボタン */
-.choices{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
-  flex-wrap:wrap;
-}
 .btn{
   appearance:none;
   border:none;
@@ -174,15 +163,12 @@ body{
 }
 .btn:hover{ filter: brightness(1.05); }
 .btn:active{ transform: translateY(1px); }
-
-.btn.ghost{
-  background: transparent;
-  color: rgba(233,242,239,.88);
-  border:1px solid rgba(160,255,220,.25);
-  box-shadow:none;
+.btn.sm{
+  padding:10px 12px;
+  font-size:13px;
 }
 
-
+/* リンク */
 .linkbox{
   margin-top:18px;
   padding-top:14px;
@@ -222,8 +208,52 @@ body{
   color: rgba(233,242,239,.55);
 }
 
+/* PASS */
+.pass{
+  margin-top:14px;
+  border:1px solid rgba(160,255,220,.12);
+  border-radius:14px;
+  padding:12px;
+  background: rgba(0,0,0,.22);
+}
+.passTitle{
+  margin:0 0 10px;
+  font-size:12px;
+  letter-spacing:.18em;
+  color: rgba(233,242,239,.72);
+}
+.passRow{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.passInput{
+  flex: 1 1 220px;
+  min-width: 200px;
+  border-radius:12px;
+  padding:10px 12px;
+  border:1px solid rgba(160,255,220,.22);
+  background: rgba(0,0,0,.35);
+  color:#e9f2ef;
+  outline:none;
+}
+.passInput:focus{
+  border-color: rgba(160,255,220,.45);
+  box-shadow: 0 0 0 3px rgba(160,255,220,.10);
+}
+.passMsg{
+  margin:10px 0 0;
+  font-size:12px;
+  letter-spacing:.12em;
+  min-height: 1.3em;
+  color: rgba(233,242,239,.70);
+}
+.passMsg.ok{ color: rgba(160,255,220,.9); }
+.passMsg.ng{ color: rgba(255,180,180,.85); }
+
 @media (max-width: 520px){
   .panel{ padding:20px 16px; }
-  .choices{ gap:8px; }
   .btn{ width:100%; }
+  .passInput{ min-width: 100%; }
 }
