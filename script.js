@@ -1,5 +1,4 @@
-//ノイズ
-
+// ノイズ
 const canvas = document.getElementById("noise");
 const ctx = canvas.getContext("2d");
 
@@ -15,75 +14,94 @@ function drawNoise() {
   const imageData = ctx.createImageData(w, h);
   const data = imageData.data;
 
-  // 軽量ノイズ
   for (let i = 0; i < data.length; i += 16) {
     const v = (Math.random() * 255) | 0;
     data[i] = v;
     data[i + 1] = v;
     data[i + 2] = v;
-    data[i + 3] = 35; 
+    data[i + 3] = 35;
   }
   ctx.putImageData(imageData, 0, 0);
   requestAnimationFrame(drawNoise);
 }
 drawNoise();
 
-
-  //タイプライター演出
-  function typeText(el, text, speed = 26) {
+// タイプライター
+function typeText(el, text, speed = 26) {
   return new Promise((resolve) => {
     let i = 0;
-    const timer = setInterval(() => {
-      el.textContent += text[i] ?? "";
-      i++;
+    const t = setInterval(() => {
+      el.textContent += text[i++] || "";
       if (i >= text.length) {
-        clearInterval(timer);
+        clearInterval(t);
         resolve();
       }
     }, speed);
   });
 }
 
-const t1 = document.getElementById("type1");
-const t2 = document.getElementById("type2");
-const t3 = document.getElementById("type3");
-
 (async () => {
-  await typeText(t1, "ルートが破損しています…確認中", 28);
+  await typeText(type1, "Route corrupted… Verifying.");
   await new Promise(r => setTimeout(r, 400));
-  await typeText(t2, "ログ: 不明な中継点を経由しました", 22);
+  await typeText(type2, "Log: Passed through an unknown relay node.");
   await new Promise(r => setTimeout(r, 350));
-  await typeText(t3, "警告: 監視対象フラグが立っています", 22);
+  await typeText(type3, "Warning: Access denied.");
 })();
 
-//ボタン
-const btnBack = document.getElementById("btnBack");
-const btnReveal = document.getElementById("btnReveal");
+// SHA-256
+async function sha256Hex(message) {
+  const msgUint8 = new TextEncoder().encode(message.trim().normalize("NFKC"));
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+
+const ANSWER_HASH = "5a553ec042fd590b802be2574f9af27638afe70ecf7489e0d94daf37f8547b1e";
+
+// DOM
+const keyInput = document.getElementById("keyInput");
+const btnCheck = document.getElementById("btnCheck");
+const keyMsg = document.getElementById("keyMsg");
 const linkBox = document.getElementById("linkBox");
 
-btnBack.addEventListener("click", () => {
-  if (history.length > 1) history.back();
-  else location.href = "./index.html"; 
-});
+// 判定
+async function verifyKey() {
+  const raw = keyInput.value ?? "";
+  if (!raw.trim()) {
+    keyMsg.textContent = "key required.";
+    keyMsg.className = "passMsg ng";
+    return;
+  }
 
-btnReveal.addEventListener("click", async () => {
-  btnReveal.disabled = true;
-  btnReveal.textContent = "解放中…";
+  const hashed = await sha256Hex(raw);
 
-  await new Promise(r => setTimeout(r, 700));
+  if (hashed === ANSWER_HASH) {
+  keyMsg.textContent = "access granted.";
+  keyMsg.className = "passMsg ok";
 
-  // リンク表示
+  const res = await fetch("./secret.json");
+  const data = await res.json();
+
+  noteLink.href = data.url;
+  noteLink.textContent = data.url;
+
   linkBox.hidden = false;
+}else {
+    keyMsg.textContent = "invalid key.";
+    keyMsg.className = "passMsg ng";
+  }
+}
 
-  btnReveal.textContent = "解放済み";
+btnCheck.addEventListener("click", verifyKey);
+keyInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") verifyKey();
 });
 
-//ゆらし
-
+// ゆらし
 const panel = document.querySelector(".panel");
 setInterval(() => {
-  const n = Math.random();
-  if (n < 0.18) {
+  if (Math.random() < 0.18) {
     panel.animate(
       [
         { transform: "translate(0,0)" },
@@ -91,8 +109,7 @@ setInterval(() => {
         { transform: "translate(-1px,1px)" },
         { transform: "translate(0,0)" },
       ],
-      { duration: 180, iterations: 1 }
+      { duration: 180 }
     );
   }
 }, 700);
-
