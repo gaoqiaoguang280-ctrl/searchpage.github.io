@@ -7,15 +7,13 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- 背景演出 -->
   <div class="vignette"></div>
   <div class="scanlines"></div>
   <canvas id="noise"></canvas>
 
   <main class="wrap">
     <header class="top">
-      <p class="sigil" aria-hidden="true">⟡</p>
-      <p class="small">接続先: unknown / route: redirected / trace: lost</p>
+      <p class="small">connection: unknown / route: redirected / trace: lost</p>
     </header>
 
     <section class="panel">
@@ -27,25 +25,27 @@
         <p class="line dim"><span class="prompt">></span> <span id="type3"></span></p>
       </div>
 
-      <div class="choices">
-        <button id="btnBack" class="btn ghost" type="button">やめる</button>
-        <button id="btnReveal" class="btn" type="button">すすむ</button>
+      <div class="pass">
+        <p class="passTitle">enter key</p>
+        <div class="passRow">
+          <input id="keyInput" class="passInput" type="password" autocomplete="off" placeholder="••••••••">
+          <button id="btnCheck" class="btn sm" type="button">Enter</button>
+        </div>
+        <p id="keyMsg" class="passMsg" aria-live="polite"></p>
       </div>
 
       <div id="linkBox" class="linkbox" hidden>
-        <p class="warn">リンクが明らかになりました。クリックは自己責任。</p>
-
+        <p class="warn">This link seems like an unsafe site...</p>
         <h2 id="note" class="noteTitle">
-          <a id="noteLink" href="https://note.com/crisp_ram6755" target="_blank" rel="noopener noreferrer">
-            note://crisp_ram6755
+          <a id="noteLink" href="#" target="_blank">
           </a>
         </h2>
-
       </div>
+
     </section>
 
     <footer class="foot">
-      <p class="tiny">signal: unstable / latency: - / watcher: ON</p>
+      <p class="tiny">signal: unstable / latency: - / watcher: on</p>
     </footer>
   </main>
 
